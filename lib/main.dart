@@ -17,9 +17,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    
-    APIService.update("https://blffmaku9b.execute-api.eu-central-1.amazonaws.com/Prod/corona-test-case/889f0313-bac6-4a28-8e2e-8793c0b85c8d", CoronaStatus.POSITIVE).then(print);
-    
     return MaterialApp(
       title: 'Flutt<er Demo',
       theme: ThemeData(
