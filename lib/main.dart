@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:labor_scanner/widgets/status_indicator_widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:labor_scanner/bloc/api_bloc.dart';
+
+import 'pages/main_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,11 +26,10 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(
-        body: Center(
-          child: StatusIndicatorWidget.error(),
-        ),
-      ),
+      home: BlocProvider<APIBloc>(
+        create: (context) => APIBloc(),
+        child: MainPage(),
+      )
     );
   }
 }
