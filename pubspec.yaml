@@ -33,7 +33,7 @@ dependencies:
   meta: any
   # https://pub.dev/packages/sensors
   sensors: ^0.4.1+10
-  # https://pub.dev/packages/flutter_qr_scanner
+  # https://pub.dev/packages/flutter_qr_bar_scanner
   flutter_qr_bar_scanner: ^1.0.1
 
 
