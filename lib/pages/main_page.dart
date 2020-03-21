@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,9 +29,21 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
 
-  void _complete(BuildContext context) {
+  final assetsAudioPlayer = AssetsAudioPlayer();
 
-    Timer(const Duration(milliseconds: 2500), () => context.bloc<APIBloc>().add(RequestCompleteEvent()));
+  Timer _timer;
+
+  void _complete(BuildContext context) {
+    assetsAudioPlayer.play();
+    _timer = Timer(const Duration(milliseconds: 2500), () => context.bloc<APIBloc>().add(RequestCompleteEvent()));
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    assetsAudioPlayer.stop();
+    assetsAudioPlayer.dispose();
+    super.dispose();
   }
 
   @override
@@ -57,6 +70,7 @@ class _MainPageState extends State<MainPage> {
             return ScannerPage(settingsState: widget.settingsState);
           }
           else if (state is APISent) {
+            assetsAudioPlayer.open('assets/audios/success.mp3');
             _complete(ccontext);
             return Container(
               color: bgc,
@@ -66,6 +80,7 @@ class _MainPageState extends State<MainPage> {
             );
           }
           else if (state is APIError) {
+            assetsAudioPlayer.open('assets/audios/error.mp3');
             _complete(ccontext);
             return Container(
               color: bgc,

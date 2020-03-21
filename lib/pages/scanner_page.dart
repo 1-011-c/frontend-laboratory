@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_qr_bar_scanner/qr_bar_scanner_camera.dart';
 import 'package:labor_scanner/bloc/api_bloc.dart';
-import 'package:labor_scanner/bloc/settings_bloc.dart';
 import 'package:labor_scanner/event/api_event.dart';
 import 'package:labor_scanner/model/corona_test_case.dart';
 import 'package:labor_scanner/state/settings_state.dart';

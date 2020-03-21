@@ -29,6 +29,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.5.2"
+  assets_audio_player:
+    dependency: "direct main"
+    description:
+      name: assets_audio_player
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.3"
   async:
     dependency: transitive
     description:
@@ -545,7 +552,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.11"
+    version: "0.2.15"
   timing:
     dependency: transitive
     description:
