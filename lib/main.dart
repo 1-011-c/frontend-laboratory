@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:labor_scanner/bloc/api_bloc.dart';
-import 'package:labor_scanner/widgets/loading.dart';
-import 'package:labor_scanner/widgets/status_indicator_widget.dart';
 
 import 'pages/main_page.dart';
 
