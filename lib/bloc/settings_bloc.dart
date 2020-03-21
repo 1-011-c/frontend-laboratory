@@ -9,22 +9,29 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   @override
   Stream<SettingsState> mapEventToState(SettingsEvent event) async* {
     if (event is GetSettings) {
-      switch(await SettingsService.getSettings()) {
-        case SettingsStatus.UNKNOWN:
-          yield UnknownTestingSettingsState();
-          break;
-        case SettingsStatus.POSITIVE:
-          yield PositiveTestingSettingsState();
-          break;
-        case SettingsStatus.NEGATIVE:
-          yield NegativeTestingSettingsState();
-          break;
-      }
+      yield mapStatusToState(await SettingsService.getSettings());
     }
 
     if (event is UpdateSettings) {
       SettingsService.updateSettings(event.status);
+      yield mapStatusToState(await SettingsService.getSettings());
     }
+  }
+
+  SettingsState mapStatusToState(final SettingsStatus status) {
+    switch(status) {
+      case SettingsStatus.UNKNOWN:
+        return UnknownTestingSettingsState();
+      break;
+      case SettingsStatus.POSITIVE:
+        return PositiveTestingSettingsState();
+      break;
+      case SettingsStatus.NEGATIVE:
+        return NegativeTestingSettingsState();
+      break;
+    }
+
+    return null;
   }
 
   @override
