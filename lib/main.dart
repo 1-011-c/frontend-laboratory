@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:labor_scanner/widgets/loading.dart';
 import 'package:labor_scanner/widgets/status_indicator_widget.dart';
-
-import 'pages/main_page.dart';
 
 void main() {
   runApp(MyApp());
