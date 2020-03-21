@@ -11,6 +11,13 @@ import 'package:labor_scanner/state/settings_state.dart';
 import 'package:sensors/sensors.dart';
 
 class ScannerPage extends StatefulWidget {
+
+  final SettingsState settingsState;
+
+  ScannerPage({
+    @required this.settingsState
+  });
+
   @override
   _ScannerPageState createState() => _ScannerPageState();
 }
@@ -78,31 +85,27 @@ class _ScannerPageState extends State<ScannerPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SettingsBloc, SettingsState>(
-      builder: (context, state) {
-        var bgc = state is PositiveTestingSettingsState ? Colors.blue : Colors.amber;
-        return Container(
-          decoration: BoxDecoration(
-              color: bgc
-          ),
-          child: _scanning ?
-          Center(
-            child: SizedBox(
-              height: 1000,
-              width: 500,
-              child: QRBarScannerCamera(
-                onError: (context, error) => Text(
-                  error.toString(),
-                  style: TextStyle(color: Colors.red),
-                ),
-                qrCodeCallback: (code) {
-                  _qrCallback(code, state);
-                },
-              ),
+    var bgc = widget.settingsState is PositiveTestingSettingsState ? Colors.blue : Colors.amber;
+    return Container(
+      decoration: BoxDecoration(
+          color: bgc
+      ),
+      child: _scanning ?
+      Center(
+        child: SizedBox(
+          height: 1000,
+          width: 500,
+          child: QRBarScannerCamera(
+            onError: (context, error) => Text(
+              error.toString(),
+              style: TextStyle(color: Colors.red),
             ),
-          ) : Center(child: Text(_barcode)),
-        );
-      },
+            qrCodeCallback: (code) {
+              _qrCallback(code, widget.settingsState);
+            },
+          ),
+        ),
+      ) : Center(child: Text(_barcode)),
     );
   }
 }

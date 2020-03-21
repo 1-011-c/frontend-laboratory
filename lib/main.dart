@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:labor_scanner/bloc/api_bloc.dart';
 import 'package:labor_scanner/bloc/settings_bloc.dart';
+import 'package:labor_scanner/event/settings_event.dart';
 import 'package:labor_scanner/pages/settings_page.dart';
 import 'package:labor_scanner/state/settings_state.dart';
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutt<er Demo',
+      title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -40,11 +41,12 @@ class MyApp extends StatelessWidget {
         ],
         child: BlocBuilder<SettingsBloc, SettingsState>(
           builder: (context, state) {
+            context.bloc<SettingsBloc>().add(GetSettingsEvent());
             if(state is UnknownTestingSettingsState) {
               return SettingsPage();
             }
 
-            return MainPage();
+            return MainPage(settingsState: state);
           },
         ),
       )

@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:labor_scanner/bloc/settings_bloc.dart';
 import 'package:labor_scanner/event/settings_event.dart';
 import 'package:labor_scanner/model/settings_status.dart';
-import 'package:labor_scanner/state/settings_state.dart';
 
 class SettingsPage extends StatefulWidget {
 

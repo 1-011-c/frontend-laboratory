@@ -34,6 +34,10 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     return null;
   }
 
+  SettingsState getInitial() {
+    
+  }
+
   @override
   SettingsState get initialState => UnknownTestingSettingsState();
 
