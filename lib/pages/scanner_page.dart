@@ -86,6 +86,7 @@ class _ScannerPageState extends State<ScannerPage> {
   @override
   Widget build(BuildContext context) {
     var bgc = widget.settingsState is PositiveTestingSettingsState ? Colors.blue : Colors.amber;
+    var infoText = widget.settingsState is PositiveTestingSettingsState ? 'Positiv getestet' : 'Negativ getestet';
     return Container(
       decoration: BoxDecoration(
           color: bgc
@@ -105,7 +106,13 @@ class _ScannerPageState extends State<ScannerPage> {
             },
           ),
         ),
-      ) : Center(child: Text(_barcode)),
+      ) : Center(
+        child: Text(infoText, style: const TextStyle(
+            fontSize: 75.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white
+        ), textAlign: TextAlign.center),
+      )
     );
   }
 }
