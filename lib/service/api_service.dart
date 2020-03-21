@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:labor_scanner/model/corona_test_case.dart';
+import 'package:labor_scanner/extensions/CoronaStatusExtension.dart';
 
 class APIService {
   static const API_BASE_URL = 'https://blffmaku9b.execute-api.eu-central-1.amazonaws.com/Prod';
@@ -16,7 +17,7 @@ class APIService {
     if (!url.startsWith(API_BASE_PATH))
       return null;
 
-    final finalUrl = '$API_BASE_URL$url/${infected.toString().split(".")[1]}';
+    final finalUrl = '$API_BASE_URL$url/${infected.name}';
     print(finalUrl);
     final Response response = await dio.patch(finalUrl);
 
