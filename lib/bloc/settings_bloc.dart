@@ -21,6 +21,10 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
           break;
       }
     }
+
+    if (event is UpdateSettings) {
+      SettingsService.updateSettings(event.status);
+    }
   }
 
   @override
