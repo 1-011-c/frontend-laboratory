@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:labor_scanner/bloc/api_bloc.dart';
+import 'package:labor_scanner/bloc/settings_bloc.dart';
+import 'package:labor_scanner/pages/settings_page.dart';
+import 'package:labor_scanner/state/settings_state.dart';
 
 import 'pages/main_page.dart';
 
@@ -26,9 +29,24 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: BlocProvider<APIBloc>(
-        create: (context) => APIBloc(),
-        child: MainPage(),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider<SettingsBloc>(
+            create: (context) => SettingsBloc(),
+          ),
+          BlocProvider<APIBloc>(
+            create: (context) => APIBloc(),
+          )
+        ],
+        child: BlocBuilder<SettingsBloc, SettingsState>(
+          builder: (context, state) {
+            if(state is UnknownTestingSettingsState) {
+              return SettingsPage();
+            }
+
+            return MainPage();
+          },
+        ),
       )
     );
   }

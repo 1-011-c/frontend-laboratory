@@ -9,10 +9,10 @@ abstract class SettingsEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetSettings extends SettingsEvent {}
+class GetSettingsEvent extends SettingsEvent {}
 
-class UpdateSettings extends SettingsEvent {
+class UpdateSettingsEvent extends SettingsEvent {
   final SettingsStatus status;
 
-  const UpdateSettings({@required this.status});
+  const UpdateSettingsEvent({@required this.status});
 }

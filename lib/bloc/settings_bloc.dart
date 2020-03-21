@@ -8,11 +8,11 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
   @override
   Stream<SettingsState> mapEventToState(SettingsEvent event) async* {
-    if (event is GetSettings) {
+    if (event is GetSettingsEvent) {
       yield mapStatusToState(await SettingsService.getSettings());
     }
 
-    if (event is UpdateSettings) {
+    if (event is UpdateSettingsEvent) {
       SettingsService.updateSettings(event.status);
       yield mapStatusToState(await SettingsService.getSettings());
     }
