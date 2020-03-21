@@ -15,3 +15,5 @@ class UpdateAPIEvent extends APIEvent {
 
   const UpdateAPIEvent({@required this.url, @required this.infected});
 }
+
+class RequestCompleteEvent extends APIEvent {}

@@ -23,6 +23,8 @@ class APIBloc extends Bloc<APIEvent, APIState> {
       else {
         yield APIError();
       }
+    } else if (event is RequestCompleteEvent) {
+      yield APIWaiting();
     }
   }
 

@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:labor_scanner/bloc/api_bloc.dart';
+import 'package:labor_scanner/event/api_event.dart';
 import 'package:labor_scanner/pages/scanner_page.dart';
 import 'package:labor_scanner/state/api_state.dart';
 import 'package:labor_scanner/widgets/loading.dart';
@@ -14,6 +17,10 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
 
+  void _complete(BuildContext context) {
+    Timer(const Duration(seconds: 2), () => BlocProvider.of(context).add(RequestCompleteEvent()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,11 +30,13 @@ class _MainPageState extends State<MainPage> {
             return ScannerPage();
           }
           else if (state is APISent) {
+            _complete(context);
             return Center(
               child: StatusIndicatorWidget.success(),
             );
           }
           else if (state is APIError) {
+            _complete(context);
             return Center(
               child: StatusIndicatorWidget.error(),
             );
