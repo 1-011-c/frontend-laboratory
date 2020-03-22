@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
 
 abstract class APIState extends Equatable {
 
@@ -17,4 +18,10 @@ class APISending extends APIState {}
 class APISent extends APIState {}
 
 /// There was an error while sending data to server
-class APIError extends APIState {}
+class APIError extends APIState {
+  final String message;
+
+  APIError({
+    @required this.message
+  });
+}

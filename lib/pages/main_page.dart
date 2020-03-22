@@ -33,9 +33,9 @@ class _MainPageState extends State<MainPage> {
 
   Timer _timer;
 
-  void _complete(BuildContext context) {
+  void _complete(BuildContext context, final Duration duration) {
     assetsAudioPlayer.play();
-    _timer = Timer(const Duration(milliseconds: 2500), () => context.bloc<APIBloc>().add(RequestCompleteEvent()));
+    _timer = Timer(duration, () => context.bloc<APIBloc>().add(RequestCompleteEvent()));
   }
 
   @override
@@ -49,8 +49,10 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     var bgc = widget.settingsState is PositiveTestingSettingsState ? Colors.blue : Colors.amber;
+    final GlobalKey scaffoldKey = GlobalKey();
 
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         backgroundColor: bgc,
         title: Text('Scanner'),
@@ -71,23 +73,13 @@ class _MainPageState extends State<MainPage> {
           }
           else if (state is APISent) {
             assetsAudioPlayer.open('assets/audios/success.mp3');
-            _complete(ccontext);
-            return Container(
-              color: bgc,
-              child: Center(
-                child: StatusIndicatorWidget.success(),
-              ),
-            );
+            _complete(ccontext, const Duration(milliseconds: 2500));
+            return StatusIndicatorWidget.success(backgroundColor: bgc);
           }
           else if (state is APIError) {
             assetsAudioPlayer.open('assets/audios/error.mp3');
-            _complete(ccontext);
-            return Container(
-              color: bgc,
-              child: Center(
-                child: StatusIndicatorWidget.error(),
-              ),
-            );
+            _complete(ccontext, const Duration(milliseconds: 5000));
+            return StatusIndicatorWidget.error(errorMessage: state.message, backgroundColor: bgc);
           }
 
           return Container(

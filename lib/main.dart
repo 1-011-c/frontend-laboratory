@@ -7,6 +7,8 @@ import 'package:labor_scanner/model/corona_test_case.dart';
 import 'package:labor_scanner/pages/settings_page.dart';
 import 'package:labor_scanner/service/api_service.dart';
 import 'package:labor_scanner/state/settings_state.dart';
+import 'package:labor_scanner/widgets/loading.dart';
+import 'package:labor_scanner/widgets/status_indicator_widget.dart';
 
 import 'pages/main_page.dart';
 
