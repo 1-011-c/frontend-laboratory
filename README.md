@@ -1,6 +1,6 @@
 # Frontend Laboratory
 
-This is the frontend for the laboratory which is written ind Dart with Flutter.
+This is the frontend for the laboratory which is written in Dart with Flutter.
 
 # How to use
 Download the latest release and install it on your Smartphone.
