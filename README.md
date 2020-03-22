@@ -1,3 +1,5 @@
+![logo](logo.png)
+
 # Frontend Laboratory
 This is the frontend for the laboratory which is written in Dart with Flutter.
 It is used by the laboratorian to update the patient infection status as soon as the samples was tested.
