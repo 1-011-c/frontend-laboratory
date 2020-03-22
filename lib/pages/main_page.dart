@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:feature_discovery/feature_discovery.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:labor_scanner/bloc/api_bloc.dart';
 import 'package:labor_scanner/bloc/settings_bloc.dart';
@@ -39,8 +41,22 @@ class _MainPageState extends State<MainPage> {
   }
 
   @override
+  void initState() {
+    SchedulerBinding.instance.addPostFrameCallback((Duration duration) {
+      FeatureDiscovery.discoverFeatures(
+        context,
+        const <String> [ // Feature ids for every feature that you want to showcase in order.
+          'change-profile-feature',
+          'tilt-feature'
+        ],
+      );
+    });
+    super.initState();
+  }
+
+  @override
   void dispose() {
-    _timer.cancel();
+    _timer?.cancel();
     assetsAudioPlayer.stop();
     assetsAudioPlayer.dispose();
     super.dispose();
@@ -55,14 +71,36 @@ class _MainPageState extends State<MainPage> {
       key: scaffoldKey,
       appBar: AppBar(
         backgroundColor: bgc,
-        title: Text('Scanner'),
+        title: DescribedFeatureOverlay(
+          featureId: 'tilt-feature',
+          onDismiss: () async => false,
+          tapTarget: const Text('Scanner'),
+          title: Text('Barcodes einscannen.'),
+          description: Text('Um einen Barcode einzuscannen, bewege das Smartphone.'),
+          backgroundColor: Colors.red,
+          targetColor: Colors.white,
+          child: const Text('Scanner'),
+        ),
         elevation: 0.0,
         actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.settings, color: Colors.white),
-            onPressed: () {
-              context.bloc<SettingsBloc>().add(UpdateSettingsEvent(status: SettingsStatus.UNKNOWN));
+          DescribedFeatureOverlay(
+            onDismiss: () async => false,
+            featureId: 'change-profile-feature',
+            tapTarget: Icon(Icons.settings),
+            title: Text('Du kannst jederzeit ändern, ob die App einen Positiv- oder einen Negativfall bestätigen soll. (Tippe auf das pulsierende Element um fortzufahren)'),
+            backgroundColor: Colors.red,
+            targetColor: Colors.white,
+            textColor: Colors.white,
+            onOpen: () async{
+              print('I will open');
+              return true;
             },
+            child: IconButton(
+              icon: Icon(Icons.settings, color: Colors.white),
+              onPressed: () {
+                context.bloc<SettingsBloc>().add(UpdateSettingsEvent(status: SettingsStatus.UNKNOWN));
+              },
+            ),
           )
         ],
       ),
@@ -78,16 +116,11 @@ class _MainPageState extends State<MainPage> {
           }
           else if (state is APIError) {
             assetsAudioPlayer.open('assets/audios/error.mp3');
-            _complete(ccontext, const Duration(milliseconds: 5000));
+            _complete(ccontext, Duration(milliseconds: 500 * state.message.split(' ').length));
             return StatusIndicatorWidget.error(errorMessage: state.message, backgroundColor: bgc);
           }
 
-          return Container(
-            color: bgc,
-            child: Center(
-              child: LoadingWidget(),
-            ),
-          );
+          return LoadingWidget(backgroundColor: bgc);
         },
       )
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:tinycolor/tinycolor.dart';
 
 class StatusIndicatorWidget extends StatefulWidget {
   final IconData icon;
@@ -62,7 +63,7 @@ class _StatusIndicatorWidgetState extends State<StatusIndicatorWidget>
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                            color: Colors.grey,
+                            color: TinyColor(widget.backgroundColor).darken(80).color,
                             blurRadius: 7.0,
                             offset: const Offset(0.0, 0.0))
                       ]),
@@ -74,7 +75,7 @@ class _StatusIndicatorWidgetState extends State<StatusIndicatorWidget>
                           size: _iconSizeAnimation.value,
                           color: widget.icon == Icons.error
                               ? Colors.red
-                              : Colors.blue);
+                              : TinyColor(widget.backgroundColor).darken(10).color);
                     },
                   )),
                 ),

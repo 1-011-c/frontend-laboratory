@@ -1,3 +1,4 @@
+import 'package:feature_discovery/feature_discovery.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:labor_scanner/bloc/api_bloc.dart';
@@ -50,7 +51,9 @@ class MyApp extends StatelessWidget {
               return SettingsPage();
             }
 
-            return MainPage(settingsState: state);
+            return FeatureDiscovery(
+              child: MainPage(settingsState: state),
+            );
           },
         ),
       )

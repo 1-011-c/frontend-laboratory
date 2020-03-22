@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:feature_discovery/feature_discovery.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_qr_bar_scanner/qr_bar_scanner_camera.dart';
 import 'package:labor_scanner/bloc/api_bloc.dart';
@@ -85,7 +87,13 @@ class _ScannerPageState extends State<ScannerPage> {
   @override
   Widget build(BuildContext context) {
     var bgc = widget.settingsState is PositiveTestingSettingsState ? Colors.blue : Colors.amber;
-    var infoText = widget.settingsState is PositiveTestingSettingsState ? 'Positiv getestet' : 'Negativ getestet';
+    var infoText = Text(
+        widget.settingsState is PositiveTestingSettingsState ? 'Positiv getestet' : 'Negativ getestet',
+        style: const TextStyle(
+        fontSize: 75.0,
+        fontWeight: FontWeight.bold,
+        color: Colors.white
+    ), textAlign: TextAlign.center);
     return Container(
       decoration: BoxDecoration(
           color: bgc
@@ -106,11 +114,7 @@ class _ScannerPageState extends State<ScannerPage> {
           ),
         ),
       ) : Center(
-        child: Text(infoText, style: const TextStyle(
-            fontSize: 75.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.white
-        ), textAlign: TextAlign.center),
+        child: infoText
       )
     );
   }
