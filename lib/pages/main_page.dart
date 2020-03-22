@@ -104,7 +104,8 @@ class _MainPageState extends State<MainPage> {
           )
         ],
       ),
-      body: BlocBuilder<APIBloc, APIState>(
+      body:
+      BlocBuilder<APIBloc, APIState>(
         builder: (ccontext, state) {
           if(state is APIWaiting) {
             return ScannerPage(settingsState: widget.settingsState);
