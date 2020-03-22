@@ -14,5 +14,12 @@ Download the latest release and install it on your Smartphone.
 1. Clone the repository
 2. Code 🎉
 
-To build the project:
+To build the project for testing:
 ```flutter run```
+
+To build the project for release:
+```flutter run --release```
+
+To pull the development dependencies for the project:
+```flutter pub get```
+
